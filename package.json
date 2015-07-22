@@ -1,0 +1,24 @@
+{
+  "name": "node-etcd-config",
+  "version": "0.0.1",
+  "description": "a config package based on etcd. It can autoreload the config value via watch",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0neSe7en/node-etcd-config.git"
+  },
+  "keywords": [
+    "config",
+    "etcd",
+    "autoreload"
+  ],
+  "author": "0neSe7en",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/0neSe7en/node-etcd-config/issues"
+  },
+  "homepage": "https://github.com/0neSe7en/node-etcd-config#readme"
+}
