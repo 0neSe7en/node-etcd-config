@@ -6,7 +6,7 @@ var _ = require('lodash');
 function EtcdConfig() {
   var watchers = [];
   var watchValues = {};
-  var etcd = new Etcd(arguments[0], arguments[1], arguments[3]);
+  var etcd = new Etcd(arguments[0], arguments[1], arguments[2]);
   var that = this;
   this.get = function(key) {
     var req = etcd.getSync(key);
