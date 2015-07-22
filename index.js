@@ -16,15 +16,46 @@ function EtcdConfig() {
     return watchValues;
   };
   this.addWatchers = function(keys) {
-    _.forEach(keys, function(k) {
-      var watcher = etcd.watcher(k);
-      watchValues[k] = that.get(k);
-      watcher.on('change', function(req) {
-        watchValues[k] = req.node.value;
-      });
-      watchers.push(watcher);
+    if (keys instanceof String) {
+      addWatcher(keys);
+    }
+    else {
+      _.forEach(keys, function(key) {
+        addWatcher(key);
+      })
+    }
+  };
+
+  function addWatchers(keys) {
+    if (keys instanceof String) {
+      addWatcher(keys)
+    } else if (keys instanceof Array) {
+      _.forEach(keys, addWatchers);
+    } else {
+      watchValues[]
+    }
+  }
+
+  function addWatcher(key) {
+    var watcher = etcd.watcher(key);
+    watchValues[key] = that.get(key);
+    watcher.on('change', function(req) {
+      watchValues[key] = req.node.value;
     });
+    watchers.push(watcher);
   }
 }
 
+
 module.exports = EtcdConfig;
+
+var obj = [
+  'haha',
+  {strategy: ['minLength', 'freqThreshold']},
+  {
+    another: [
+        'something',
+      {other: ['anything']}
+    ]
+  }
+];
