@@ -23,5 +23,8 @@
   "homepage": "https://github.com/0neSe7en/node-etcd-config#readme",
   "dependencies": {
     "node-etcd": "^4.0.2"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
   }
 }
