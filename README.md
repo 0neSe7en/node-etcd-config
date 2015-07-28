@@ -22,6 +22,9 @@ var config = new EtcdConfig('127.0.0.1', 4001);
 var mongoUrl = config.get('url');
 ```
 
+if the key is a directory, return an object.
+
+
 #### Sub App Name:
  
 ```
@@ -44,5 +47,5 @@ console.log(config.watchValues);
 
 ## Todo:
 
-- [] Test
-- [] can watch an Object, not only array.
+- [ ] Test
+- [ ] can watch an Object, not only array.
