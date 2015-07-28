@@ -23,7 +23,18 @@ function EtcdConfig(host, port, appName) {
       key = that.appName + '/' + key;
     }
     var req = etcd.getSync(key);
-    return req.body.node.value;
+    if (req.body.node.dir) {
+      var result = {};
+      _.forEach(req.body.node.nodes, function(n) {
+        if (!n.dir) {
+          var subKey = n.key.slice(key.length + 2);
+          result[subKey] = n.value;
+        }
+      });
+      return result;
+    } else {
+      return req.body.node.value;
+    }
   };
 
   this.addWatchers = function(keys) {
