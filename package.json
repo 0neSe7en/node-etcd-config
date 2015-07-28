@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/0neSe7en/node-etcd-config#readme",
   "dependencies": {
+    "lodash": "^3.10.0",
     "node-etcd": "^4.0.2"
   },
   "publishConfig": {
