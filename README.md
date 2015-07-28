@@ -19,15 +19,27 @@ var config = new EtcdConfig('127.0.0.1', 4001);
 ### General Usage:
 
 ```
-var mongoUrl = config.get(url);
+var mongoUrl = config.get('url');
+```
+
+#### Sub App Name:
+ 
+```
+var testConfig = new EtcdConfig('127.0.0.1', '4001', 'test');
+var productionConfig = new EtcdConfig('127.0.0.1', '4001', 'production');
+var mongoUrl = testConfig('url');
+// or...
+var config = new EtcdConfig('127.0.0.1', '4001');
+var mongoUrl = testConfig('test/url');
 ```
 
 ### Autoreload:
 
 ```
 config.addWatchers(['v1', 'v2']);
-config.getWatchers();
+console.log(config.watchValues);
 // {v1: 'latest value', v2: 'latest value'}
+// whenever you get `watchValues`, they are the latest values.
 ```
 
 ## Todo:
