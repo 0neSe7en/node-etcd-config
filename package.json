@@ -1,6 +1,6 @@
 {
   "name": "node-etcd-config",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "a config package based on etcd. It can autoreload the config value via watch",
   "main": "index.js",
   "scripts": {
