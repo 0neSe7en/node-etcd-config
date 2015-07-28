@@ -2,60 +2,40 @@
 var Etcd = require('node-etcd');
 var _ = require('lodash');
 
-
-function EtcdConfig() {
+/**
+ *
+ * @param {String} [host]
+ * @param {String} [port]
+ * @param {String} [appName] - sub app etcd config.
+ * @constructor
+ */
+function EtcdConfig(host, port, appName) {
   var watchers = [];
-  var watchValues = {};
-  var etcd = new Etcd(arguments[0], arguments[1], arguments[2]);
+  var etcd = new Etcd(host, port, arguments[3], arguments[4]);
   var that = this;
-  this.get = function(key) {
+
+  this.appName = appName;
+  this.watchValues = {};
+  this.get = function(key, app) {
+    if (app) {
+      key = app + '/' + key;
+    } else if (that.appName) {
+      key = that.appName + '/' + key;
+    }
     var req = etcd.getSync(key);
     return req.body.node.value;
   };
-  this.getWatchers = function() {
-    return watchValues;
-  };
+
   this.addWatchers = function(keys) {
-    if (keys instanceof String) {
-      addWatcher(keys);
-    }
-    else {
-      _.forEach(keys, function(key) {
-        addWatcher(key);
-      })
-    }
-  };
-
-  function addWatchers(keys) {
-    if (keys instanceof String) {
-      addWatcher(keys)
-    } else if (keys instanceof Array) {
-      _.forEach(keys, addWatchers);
-    } else {
-      watchValues[]
-    }
-  }
-
-  function addWatcher(key) {
-    var watcher = etcd.watcher(key);
-    watchValues[key] = that.get(key);
-    watcher.on('change', function(req) {
-      watchValues[key] = req.node.value;
+    _.forEach(keys, function(k) {
+      var watcher = etcd.watcher(k);
+      that.watchValues[k] = that.get(k);
+      watcher.on('change', function(req) {
+        that.watchValues[k] = req.node.value;
+      });
+      watchers.push(watcher);
     });
-    watchers.push(watcher);
   }
 }
 
-
 module.exports = EtcdConfig;
-
-var obj = [
-  'haha',
-  {strategy: ['minLength', 'freqThreshold']},
-  {
-    another: [
-        'something',
-      {other: ['anything']}
-    ]
-  }
-];
