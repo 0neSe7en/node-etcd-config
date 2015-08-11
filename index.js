@@ -11,7 +11,12 @@ var _ = require('lodash');
  */
 function EtcdConfig(host, port, appName) {
   var watchers = [];
-  var etcd = new Etcd(host, port, arguments[3], arguments[4]);
+  var etcd;
+  if (_.isArray(host)){
+    etcd = new Etcd(host, arguments[3], arguments[4]);
+  } else {
+    etcd = new Etcd(host, port, arguments[3], arguments[4]);
+  }
   var that = this;
 
   this.appName = appName;
