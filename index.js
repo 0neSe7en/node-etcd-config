@@ -44,14 +44,15 @@ function EtcdConfig(host, port, appName) {
 
   this.addWatchers = function(keys) {
     _.forEach(keys, function(k) {
-      var watcher = etcd.watcher(k);
+      var watchKey = that.appName ? that.appName + '/' + k : k;
+      var watcher = etcd.watcher(watchKey);
       that.watchValues[k] = that.get(k);
       watcher.on('change', function(req) {
         that.watchValues[k] = req.node.value;
       });
       watchers.push(watcher);
     });
-  }
+  };
 }
 
 module.exports = EtcdConfig;
