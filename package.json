@@ -24,8 +24,5 @@
   "dependencies": {
     "lodash": "^3.10.0",
     "node-etcd": "^4.0.2"
-  },
-  "publishConfig": {
-    "registry": "http://registry.npmjs.org/"
   }
 }
